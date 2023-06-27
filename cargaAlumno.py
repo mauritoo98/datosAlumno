@@ -28,9 +28,8 @@ def agregaAlumno():
 
 def leeAlumno():
     archivo = open("alumnos.txt", "r")
-    busqueda = input("Ingrese el nombre a buscar")
+    busqueda = input("Ingrese el nombre a buscar: ")
     notaFinal = 0
-    acum=2
     for alumno in archivo.readlines():
         arrayAlumno = alumno.strip().split(";")
         arrayAlumno.pop(-1)
@@ -39,12 +38,17 @@ def leeAlumno():
             arrayAlumno.pop(0)
             for nota in arrayAlumno:
                 notaFinal=notaFinal+int(nota)
-    notaFinal=notaFinal/6
-    print("La nota final de: ",busqueda," es ",notaFinal)
-    if notaFinal>7:
-        print("Esta aprobado")
+
+    if notaFinal>0:
+        notaFinal=notaFinal/6
+        print("La nota final de: ",busqueda," es ",notaFinal)
+        if notaFinal>=7:
+            print("Esta aprobado")
+        else:
+            print("Esta desaprobado")
     else:
-        print("Esta desaprobado")
+        print("Ese usuario no existe")
+
     archivo.close()
 
 def estadoEstudiantes():
@@ -81,16 +85,18 @@ def estadoEstudiantes():
 
 
 def menu():
-    opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+    opcion=input("Para agregar alumno ingrese 1\nPara buscar un alumno ingrese 2\n Para ver aprobados ingrese 3\n Para salir presione enter: ")
     while opcion== "1" or "2" or "3":
         if opcion=="1":
             agregaAlumno()
-            opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+            opcion=input("Para agregar alumno ingrese 1\nPara buscar un alumno ingrese 2\n Para ver aprobados ingrese 3\n Para salir presione enter: ")
         elif opcion =="2":
             leeAlumno()
+            opcion=input("Para agregar alumno ingrese 1\nPara buscar un alumno ingrese 2\n Para ver aprobados ingrese 3\n Para salir presione enter: ")
+
         elif opcion == "3":
             estadoEstudiantes()
-            opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+            opcion=input("Para agregar alumno ingrese 1\nPara buscar un alumno ingrese 2\n Para ver aprobados ingrese 3\n Para salir presione enter: ")
         else:
             break
 
