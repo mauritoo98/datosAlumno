@@ -1,3 +1,4 @@
+
 def agregaAlumno():
     archivo = open("alumnos.txt", "w")
     cargaAlumno="si"
@@ -44,5 +45,54 @@ def leeAlumno():
         print("Esta aprobado")
     else:
         print("Esta desaprobado")
+    archivo.close()
 
-leeAlumno()
+def estadoEstudiantes():
+    archivo = open("alumnos.txt", "r")
+    aprobado = []
+    desaprobado=[]
+    nota=0
+    for alumno in archivo.readlines():
+        alumno=alumno.strip().split(";")
+        nombre = alumno[0]
+        alumno.pop(-1)
+        alumno.pop(0)
+        alumno.pop(0)
+        for notas in alumno:
+            notas = int(notas)
+            nota=notas+nota
+        nota=nota/6
+        if nota>=7:
+            aprobado.append(nombre)
+            continue
+        else:
+            desaprobado.append(nombre)
+            continue
+    opcion = int(input("Si quiere buscar aprobados ingrese 1, para los desaprobados ingrese 2: "))
+    if opcion==1:
+        print("Los aprobados son: ")
+        for alumno in aprobado:
+            print(alumno)
+    elif opcion == 2:
+        print("Los desaprobados son: ")
+        for alumno in desaprobado:
+            print(alumno)
+    archivo.close()
+
+
+def menu():
+    opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+    while opcion== "1" or "2" or "3":
+        if opcion=="1":
+            agregaAlumno()
+            opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+        elif opcion =="2":
+            leeAlumno()
+        elif opcion == "3":
+            estadoEstudiantes()
+            opcion=input("Para agregar alumno ingrese 1, para buscar un alumno ingrese 2, para ver aprobados ingrese 3 para salir presione enter: ")
+        else:
+            break
+
+menu()
+print("Usted salio")
